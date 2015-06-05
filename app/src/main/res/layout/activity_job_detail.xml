@@ -1,0 +1,173 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:stretchColumns="0,1"
+    tools:context="com.example.hejianbin.bmc.job.JobDetailActivity">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="任务id:" />
+
+        <TextView
+            android:id="@+id/job_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="job-feuncr26j02713wc" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="队列名称:" />
+
+        <TextView
+            android:id="@+id/pipeline_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mytestpipeline"
+            android:clickable="false" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="转码模板:" />
+
+        <TextView
+            android:id="@+id/preset_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bce.video_mp4_1920x1080_3660kbps"
+            android:clickable="true"
+            android:singleLine="false"
+            android:textColor="@android:color/holo_green_dark" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="转码结果" />
+
+        <TextView
+            android:id="@+id/job_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FAILED" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/error">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="失败原因" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输入文件不是有效视频" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输入文件:" />
+
+        <TextView
+            android:id="@+id/source_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tokyo-hot.avi" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输出文件:" />
+
+        <TextView
+            android:id="@+id/target_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mmmmm.mp4" />
+    </TableRow>
+
+    <!--<TableRow-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="提交时间:" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/create_time"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="2015-05-30 20:09:44" />-->
+    <!--</TableRow>-->
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="转码时间:" />
+
+        <TextView
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-05-30 20:09:44" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束时间:" />
+
+        <TextView
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-05-30 20:09:44" />
+    </TableRow>
+
+</TableLayout>

@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.hejianbin.bmc.preset.PresetDetailFragment">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/preset_name"
+        android:textStyle="bold|italic"
+        android:hint="小写字母数据或下划线，不超过40位" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/preset_description"
+        android:hint="模板描述" />
+
+    <CheckBox
+        android:id="@+id/audio_check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="音频设置" />
+
+    <fragment
+        android:id="@+id/fragment_preset_audio"
+        android:name="com.example.hejianbin.bmc.preset.PresetAudioFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_preset_audio" />
+
+    <CheckBox
+        android:id="@+id/video_check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="视频设置" />
+
+    <fragment
+        android:id="@+id/fragment_preset_video"
+        android:name="com.example.hejianbin.bmc.preset.PresetVideoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_preset_video" />
+
+</LinearLayout>

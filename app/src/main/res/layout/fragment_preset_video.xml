@@ -1,0 +1,99 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    tools:context="com.example.hejianbin.bmc.preset.PresetVideoFragment">
+
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="编码信息" />
+
+        <Spinner
+            android:id="@+id/codec"
+            android:layout_height="wrap_content"
+            android:entries="@array/video_codec"
+            android:spinnerMode="dropdown" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="profile" />
+
+        <Spinner
+            android:id="@+id/profile"
+            android:layout_height="wrap_content"
+            android:entries="@array/video_profile"
+            android:spinnerMode="dropdown" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="目标码率" />
+
+        <EditText
+            android:id="@+id/bit_rate_in_bps"
+            android:inputType="number"
+            android:layout_height="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="最大帧率" />
+
+        <Spinner
+            android:id="@+id/max_frame_rate"
+            android:layout_height="wrap_content"
+            android:entries="@array/video_max_frame_rate"
+            android:spinnerMode="dropdown" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="高度(pixel):" />
+
+        <EditText
+            android:id="@+id/max_height"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+            android:hint="不填写表示与输入一致" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="宽度(pixel):" />
+
+        <EditText
+            android:id="@+id/max_width"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+            android:hint="不填写表示与输入一致"/>
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="伸缩策略:" />
+
+        <Spinner
+            android:id="@+id/sizing_policy"
+            android:layout_height="wrap_content"
+            android:entries="@array/video_sizing_policy"
+            android:spinnerMode="dropdown" />
+    </TableRow>
+
+</TableLayout>

@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.hejianbin.bmc.preset.PresetDetailActivity">
+
+    <fragment
+        android:id="@+id/fragment_preset_detail"
+        android:name="com.example.hejianbin.bmc.preset.PresetDetailFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:layout="@layout/fragment_preset_detail" />
+</RelativeLayout>

@@ -1,0 +1,49 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    tools:context="com.example.hejianbin.bmc.preset.PresetAudioFragment">
+
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="目标码率(bps):" />
+
+        <EditText
+            android:id="@+id/bitRateInBps"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="音频采样率:" />
+
+
+        <EditText
+            android:id="@+id/sampleRateInHz"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="声道数目:" />
+
+
+        <EditText
+            android:id="@+id/channels"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    </TableRow>
+
+</TableLayout>
