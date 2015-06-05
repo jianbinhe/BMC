@@ -4,7 +4,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.hejianbin.bmc.BMCMainActivity">
+    tools:context="com.bmc.BMCMainActivity">
 
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
@@ -15,21 +15,21 @@
 
         <fragment
             android:id="@+id/preset_fragment"
-            android:name="com.example.hejianbin.bmc.preset.PresetsFragment"
+            android:name="com.bmc.preset.PresetsFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_preset_list" />
 
         <fragment
             android:id="@+id/pipeline_fragment"
-            android:name="com.example.hejianbin.bmc.pipeline.PipelinesFragment"
+            android:name="com.bmc.pipeline.PipelinesFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_pipeline_list" />
 
         <fragment
             android:id="@+id/setting_fragment"
-            android:name="com.example.hejianbin.bmc.setting.ConfItemFragment"
+            android:name="com.bmc.setting.ConfItemFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_confitem_list" />
@@ -45,7 +45,7 @@
          the container. -->
     <fragment
         android:id="@+id/navigation_drawer"
-        android:name="com.example.hejianbin.bmc.NavigationDrawerFragment"
+        android:name="com.bmc.NavigationDrawerFragment"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

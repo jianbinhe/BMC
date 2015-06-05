@@ -97,7 +97,7 @@
 
     <fragment
         android:id="@+id/fragment_job_list"
-        android:name="com.example.hejianbin.bmc.job.JobListFragment"
+        android:name="com.bmc.job.JobListFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_job_list" />

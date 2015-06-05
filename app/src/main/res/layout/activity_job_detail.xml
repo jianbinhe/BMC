@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:stretchColumns="0,1"
-    tools:context="com.example.hejianbin.bmc.job.JobDetailActivity">
+    tools:context="com.bmc.job.JobDetailActivity">
 
     <TableRow
         android:layout_width="match_parent"
