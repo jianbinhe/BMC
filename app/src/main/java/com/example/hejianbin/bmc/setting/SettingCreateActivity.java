@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.hejianbin.bmc.R;
 
@@ -39,7 +40,20 @@ public class SettingCreateActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                StringBuilder sb = new StringBuilder();
+                if (accessKey.getText().toString().isEmpty()) {
+                    sb.append("access key不能为空\n");
+                }
+                if (secretKey.getText().toString().isEmpty()) {
+                    sb.append("secret key不能为空\n");
+                }
+                if (description.getText().toString().isEmpty()) {
+                    sb.append("description不能为空");
+                }
+                if (!sb.toString().isEmpty()) {
+                    Toast.makeText(view.getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent();
                 intent.putExtra("success", true);
                 intent.putExtra("access_key", accessKey.getText().toString());
