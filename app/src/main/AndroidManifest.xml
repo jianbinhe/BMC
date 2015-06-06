@@ -18,10 +18,6 @@
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-            android:name=".pipeline.PipelineListActivity"
-            android:label="@string/title_activity_pipeline_list" >
-        </activity>
-        <activity
             android:name=".job.JobListActivity"
             android:label="@string/title_activity_job_list" >
         </activity>

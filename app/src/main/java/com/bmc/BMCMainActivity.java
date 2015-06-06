@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.baidubce.services.media.model.GetPresetResponse;
 import com.bmc.pipeline.PipelineDetailActivity;
@@ -57,12 +56,14 @@ public class BMCMainActivity extends ActionBarActivity
         if (CurrentConf.getMediaClient() == null) {
             transaction.show(getFragment(SETTING))
                     .hide(getFragment(PRESET))
+                    .hide(getFragment(BUCKET))
                     .hide(getFragment(PIPELINE));
             currentFragmentIndex = SETTING;
         } else {
             onNavigationDrawerItemSelected(PIPELINE);
             transaction.hide(getFragment(SETTING))
                     .hide(getFragment(PRESET))
+                    .hide(getFragment(BUCKET))
                     .show(getFragment(PIPELINE));
             currentFragmentIndex = PIPELINE;
         }
@@ -90,10 +91,6 @@ public class BMCMainActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        if (position == BUCKET) {
-            Toast.makeText(this, "not implemented yet", Toast.LENGTH_SHORT);
-            return;
-        }
         if (position != currentFragmentIndex) {
             android.app.Fragment replaceBy = getFragment(position);
             FragmentTransaction transaction = getFragmentManager().beginTransaction()
@@ -132,7 +129,7 @@ public class BMCMainActivity extends ActionBarActivity
             case PIPELINE:
                 return fragmentManager.findFragmentById(R.id.pipeline_fragment);
             case BUCKET:
-                break;
+                return fragmentManager.findFragmentById(R.id.bucket_fragment);
             case SETTING:
                 return fragmentManager.findFragmentById(R.id.setting_fragment);
 
@@ -177,6 +174,8 @@ public class BMCMainActivity extends ActionBarActivity
                 case PRESET:
                     break;
                 case PIPELINE:
+                    break;
+                case BUCKET:
                     break;
             }
             return true;

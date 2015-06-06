@@ -159,7 +159,8 @@ public class PresetsFragment extends Fragment implements AbsListView.OnItemClick
         super.onHiddenChanged(hidden);
         if (!hidden) {
             Date current = new Date();
-            if (updateTime == null || (!confVersion.equals(CurrentConf.version())) || (current.getTime() - updateTime.getTime()) > 1000 * 60) {
+            if (updateTime == null || (!confVersion.equals(CurrentConf.version()))
+                    || (current.getTime() - updateTime.getTime()) > 1000 * 60) {
                 presets.clear();
                 try {
                     presets.addAll(CurrentConf.getMediaClient().listPresets().getPresets());

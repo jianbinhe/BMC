@@ -1,11 +1,8 @@
-package com.bmc.pipeline;
+package com.bmc.bucket;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidubce.services.media.model.PipelineStatus;
+import com.baidubce.services.bos.model.BucketSummary;
 import com.bmc.R;
 import com.bmc.setting.CurrentConf;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,18 +27,17 @@ import java.util.List;
  * Large screen devices (such as tablets) are supported by replacing the ListView
  * with a GridView.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link }
  * interface.
  */
-public class PipelinesFragment extends Fragment implements AbsListView.OnItemClickListener {
-
-
-    private OnFragmentInteractionListener mListener;
+public class BucketsFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     /**
      * The fragment's ListView/GridView.
      */
     private AbsListView mListView;
+    private ProgressBar progressBar;
+
 
     /**
      * The Adapter which will be used to populate the ListView/GridView with
@@ -50,17 +45,11 @@ public class PipelinesFragment extends Fragment implements AbsListView.OnItemCli
      */
     private ListAdapter mAdapter;
 
-    private List<PipelineStatus> pipelines = new ArrayList<>();
-
-    private Date updateTime;
-
-    private String confVersion = "";
-
-    private ProgressBar progressBar;
+    private List<BucketSummary> buckets = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
-    public static PipelinesFragment newInstance(String param1, String param2) {
-        PipelinesFragment fragment = new PipelinesFragment();
+    public static BucketsFragment newInstance(String param1, String param2) {
+        BucketsFragment fragment = new BucketsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -70,24 +59,21 @@ public class PipelinesFragment extends Fragment implements AbsListView.OnItemCli
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public PipelinesFragment() {
+    public BucketsFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        mAdapter = new BucketItemAdaptor(getActivity(), R.layout.bucket_list_item, buckets);
 
-        mAdapter = new PipelineItemAdaptor(getActivity(), R.layout.pipeline_list_item, pipelines);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pipelines, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_bucket, container, false);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -98,36 +84,13 @@ public class PipelinesFragment extends Fragment implements AbsListView.OnItemCli
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
-        Log.d(this.getClass().toString(), "onCreateView");
-
 
         return view;
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(pipelines.get(position).getPipelineName());
-        }
+
     }
 
     /**
@@ -143,34 +106,15 @@ public class PipelinesFragment extends Fragment implements AbsListView.OnItemCli
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(String pipelineName);
-    }
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            Date current = new Date();
-            if (updateTime == null || (!confVersion.equals(CurrentConf.version()))
-                    || (current.getTime() - updateTime.getTime()) > 1000 * 60) {
-                new GetPipelinesTask().execute();
-            }
+            new GetBucketsTask().execute();
         }
     }
 
-    class GetPipelinesTask extends AsyncTask<Void, Void, Boolean> {
+    class GetBucketsTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
@@ -178,12 +122,10 @@ public class PipelinesFragment extends Fragment implements AbsListView.OnItemCli
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            List<PipelineStatus> pipelineStatuses =
-                    CurrentConf.getMediaClient().listPipelines().getPipelines();
-            pipelines.clear();
-            pipelines.addAll(pipelineStatuses);
-            confVersion = CurrentConf.version();
-            updateTime = new Date();
+            List<BucketSummary> bucketSummaries =
+                    CurrentConf.getBosClient().listBuckets().getBuckets();
+            buckets.clear();
+            buckets.addAll(bucketSummaries);
             return true;
         }
 
@@ -196,6 +138,8 @@ public class PipelinesFragment extends Fragment implements AbsListView.OnItemCli
                 ((ArrayAdapter) mAdapter).notifyDataSetChanged();
                 Toast.makeText(getActivity(), "数据刷新成功", Toast.LENGTH_SHORT).show();
             }
+
         }
     }
+
 }

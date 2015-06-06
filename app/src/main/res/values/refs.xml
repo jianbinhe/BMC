@@ -36,4 +36,13 @@
     -->
     <item name="fragment_confitems" type="layout">@layout/fragment_confitem_list</item>
 
+    <!--
+    Layout alias to replace the single-pane version of the layout with a
+    two-pane version on Large screens.
+
+    For more on layout aliases, see:
+    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+    -->
+    <item name="fragment_bucket" type="layout">@layout/fragment_bucket_list</item>
+
 </resources>
