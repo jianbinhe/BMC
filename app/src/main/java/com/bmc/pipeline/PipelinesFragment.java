@@ -2,6 +2,7 @@ package com.bmc.pipeline;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.baidubce.services.media.model.PipelineStatus;
 import com.bmc.R;
+import com.bmc.common.WithCreateNewItem;
 import com.bmc.setting.CurrentConf;
 
 import java.util.ArrayList;
@@ -34,7 +36,8 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class PipelinesFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class PipelinesFragment extends Fragment implements
+        AbsListView.OnItemClickListener, WithCreateNewItem {
 
 
     private OnFragmentInteractionListener mListener;
@@ -130,6 +133,11 @@ public class PipelinesFragment extends Fragment implements AbsListView.OnItemCli
         }
     }
 
+    public void onCreateNewItem() {
+        Intent intent = new Intent(getActivity(), PipelineCreateActivity.class);
+        startActivityForResult(intent, R.integer.create_new_pipeline);
+    }
+
     /**
      * The default content for this Fragment has a TextView that is shown when
      * the list is empty. If you would like to change the text, call this method
@@ -191,7 +199,7 @@ public class PipelinesFragment extends Fragment implements AbsListView.OnItemCli
         protected void onPostExecute(Boolean success) {
             progressBar.setVisibility(View.INVISIBLE);
             if (!success) {
-                Toast.makeText(getActivity(), "数据更新失败", Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(), "数据更新失败", Toast.LENGTH_SHORT).show();
             } else {
                 ((ArrayAdapter) mAdapter).notifyDataSetChanged();
                 Toast.makeText(getActivity(), "数据刷新成功", Toast.LENGTH_SHORT).show();

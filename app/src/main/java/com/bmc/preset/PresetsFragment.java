@@ -2,6 +2,7 @@ package com.bmc.preset;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.baidubce.BceServiceException;
 import com.baidubce.services.media.model.GetPresetResponse;
 import com.bmc.R;
+import com.bmc.common.WithCreateNewItem;
+import com.bmc.pipeline.PipelineCreateActivity;
 import com.bmc.setting.CurrentConf;
 
 import java.util.ArrayList;
@@ -33,7 +36,8 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class PresetsFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class PresetsFragment extends Fragment implements
+        AbsListView.OnItemClickListener, WithCreateNewItem {
 
 
     private OnFragmentInteractionListener mListener;
@@ -137,6 +141,12 @@ public class PresetsFragment extends Fragment implements AbsListView.OnItemClick
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
         }
+    }
+
+    @Override
+    public void onCreateNewItem() {
+        Intent intent = new Intent(getActivity(), PipelineCreateActivity.class);
+        startActivityForResult(intent, R.integer.create_new_preset);
     }
 
     /**

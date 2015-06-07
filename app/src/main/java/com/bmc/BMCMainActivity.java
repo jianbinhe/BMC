@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.baidubce.services.media.model.GetPresetResponse;
+import com.bmc.common.WithCreateNewItem;
 import com.bmc.pipeline.PipelineDetailActivity;
 import com.bmc.pipeline.PipelinesFragment;
 import com.bmc.preset.PresetDetailActivity;
@@ -107,16 +108,16 @@ public class BMCMainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 1:
+            case PRESET:
                 mTitle = getString(R.string.title_preset);
                 break;
-            case 2:
+            case PIPELINE:
                 mTitle = getString(R.string.title_pipeline);
                 break;
-            case 3:
+            case BUCKET:
                 mTitle = getString(R.string.title_bucket);
                 break;
-            case 4:
+            case SETTING:
                 mTitle = getString(R.string.title_setting);
         }
     }
@@ -166,18 +167,8 @@ public class BMCMainActivity extends ActionBarActivity
         int id = item.getItemId();
 
         if (id == R.id.action_create) {
-            switch (currentFragmentIndex) {
-                case SETTING:
-                    android.app.Fragment fragment = getFragment(SETTING);
-                    ((ConfItemFragment) fragment).onCreateNewItem();
-                    break;
-                case PRESET:
-                    break;
-                case PIPELINE:
-                    break;
-                case BUCKET:
-                    break;
-            }
+            android.app.Fragment fragment = getFragment(currentFragmentIndex);
+            ((WithCreateNewItem) fragment).onCreateNewItem();
             return true;
         }
         //noinspection SimplifiableIfStatement
@@ -190,7 +181,6 @@ public class BMCMainActivity extends ActionBarActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(this.getClass().toString(), "hahahaha");
         super.onActivityResult(requestCode, resultCode, data);
     }
 

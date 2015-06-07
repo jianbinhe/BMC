@@ -17,6 +17,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.bmc.R;
+import com.bmc.common.WithCreateNewItem;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
@@ -39,7 +40,8 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ConfItemFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class ConfItemFragment extends Fragment implements
+        AbsListView.OnItemClickListener, WithCreateNewItem {
 
     private OnFragmentInteractionListener mListener;
 
@@ -181,7 +183,7 @@ public class ConfItemFragment extends Fragment implements AbsListView.OnItemClic
 
     public void onCreateNewItem() {
         Intent intent = new Intent(getActivity(), SettingCreateActivity.class);
-        startActivityForResult(intent, 999);
+        startActivityForResult(intent, R.integer.create_new_conf);
     }
 
     /**
@@ -197,16 +199,6 @@ public class ConfItemFragment extends Fragment implements AbsListView.OnItemClic
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
 
     }

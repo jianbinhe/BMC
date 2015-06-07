@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.baidubce.services.bos.model.BucketSummary;
 import com.bmc.R;
+import com.bmc.common.WithCreateNewItem;
 import com.bmc.setting.CurrentConf;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link }
  * interface.
  */
-public class BucketsFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class BucketsFragment extends Fragment implements
+        AbsListView.OnItemClickListener, WithCreateNewItem {
 
     /**
      * The fragment's ListView/GridView.
@@ -112,6 +114,11 @@ public class BucketsFragment extends Fragment implements AbsListView.OnItemClick
         if (!hidden) {
             new GetBucketsTask().execute();
         }
+    }
+
+    @Override
+    public void onCreateNewItem() {
+
     }
 
     class GetBucketsTask extends AsyncTask<Void, Void, Boolean> {

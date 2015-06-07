@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="create_new_bucket">700</integer>
+    <integer name="create_new_pipeline">800</integer>
+    <integer name="create_new_preset">900</integer>
+    <integer name="create_new_conf">1000</integer>
+</resources>
