@@ -24,6 +24,8 @@ import com.bmc.common.WithCreateNewItem;
 import com.bmc.setting.CurrentConf;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -61,13 +63,6 @@ public class PipelinesFragment extends Fragment implements
 
     private ProgressBar progressBar;
 
-    // TODO: Rename and change types of parameters
-    public static PipelinesFragment newInstance(String param1, String param2) {
-        PipelinesFragment fragment = new PipelinesFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -90,7 +85,6 @@ public class PipelinesFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pipelines, container, false);
-
 
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -178,6 +172,13 @@ public class PipelinesFragment extends Fragment implements
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            new GetPipelinesTask().execute();
+        }
+    }
+
     class GetPipelinesTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {
@@ -188,6 +189,13 @@ public class PipelinesFragment extends Fragment implements
         protected Boolean doInBackground(Void... voids) {
             List<PipelineStatus> pipelineStatuses =
                     CurrentConf.getMediaClient().listPipelines().getPipelines();
+            Collections.sort(pipelineStatuses, new Comparator<PipelineStatus>() {
+                @Override
+                public int compare(PipelineStatus p0, PipelineStatus p1) {
+                    return p1.getreateTime().compareTo(p0.getreateTime());
+                }
+            });
+
             pipelines.clear();
             pipelines.addAll(pipelineStatuses);
             confVersion = CurrentConf.version();

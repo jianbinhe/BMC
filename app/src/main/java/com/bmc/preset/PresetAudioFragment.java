@@ -25,20 +25,6 @@ public class PresetAudioFragment extends Fragment {
 
     private OnPresetFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment PresetAudioFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PresetAudioFragment newInstance() {
-        PresetAudioFragment fragment = new PresetAudioFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public PresetAudioFragment() {
         // Required empty public constructor
     }
@@ -95,6 +81,4 @@ public class PresetAudioFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-
 }

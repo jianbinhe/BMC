@@ -17,29 +17,12 @@ import com.bmc.R;
  * Activities that contain this fragment must implement the
  * {@link OnPresetFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PresetVideoFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class PresetVideoFragment extends Fragment {
     private OnPresetFragmentInteractionListener mListener;
 
     private Video video;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PresetVideoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PresetVideoFragment newInstance(String param1, String param2) {
-        PresetVideoFragment fragment = new PresetVideoFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public PresetVideoFragment() {
         // Required empty public constructor
@@ -127,7 +110,7 @@ public class PresetVideoFragment extends Fragment {
                 return i;
             }
         }
-        throw new RuntimeException("Recognized item value:" + item.toString());
+        throw new RuntimeException("unrecognized item value:" + item.toString());
     }
 
     private int getIndex(Spinner spinner, String item) {

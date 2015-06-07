@@ -46,21 +46,21 @@ public class PipelineCreateActivity extends ActionBarActivity {
             public void onClick(View view) {
                 StringBuilder sb = new StringBuilder();
                 if (pipelineName.getText().toString().isEmpty()) {
-                    sb.append("pipeline名称不能为空");
+                    sb.append("pipeline名称不能为空\n");
                 }
                 if (description.getText().toString().isEmpty()) {
-                    sb.append("描述不能为空");
+                    sb.append("描述不能为空\n");
                 }
                 if (capacity.getText().toString().isEmpty()) {
-                    sb.append("队列容量不能为空");
+                    sb.append("队列容量不能为空\n");
                 }
                 if (!sb.toString().isEmpty()) {
                     Toast.makeText(view.getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 boolean success = false;
                 try {
-                    save.setText("提交中");
                     CurrentConf.getMediaClient().createPipeline(
                             pipelineName.getText().toString(),
                             description.getText().toString(),
@@ -70,10 +70,9 @@ public class PipelineCreateActivity extends ActionBarActivity {
                     success = true;
                 } catch (BceServiceException ex) {
                     Toast.makeText(view.getContext(), ex.toString(), Toast.LENGTH_SHORT).show();
-                } finally {
-                    save.setText("保存");
                 }
                 if (success) {
+                    setResult(RESULT_OK);
                     finish();
                 }
             }
@@ -83,6 +82,7 @@ public class PipelineCreateActivity extends ActionBarActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(RESULT_CANCELED);
                 finish();
             }
         });

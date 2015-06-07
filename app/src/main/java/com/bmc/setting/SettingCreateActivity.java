@@ -55,7 +55,6 @@ public class SettingCreateActivity extends AppCompatActivity {
                     return;
                 }
                 Intent intent = new Intent();
-                intent.putExtra("success", true);
                 intent.putExtra("access_key", accessKey.getText().toString());
                 intent.putExtra("secret_key", secretKey.getText().toString());
                 intent.putExtra("description", description.getText().toString());

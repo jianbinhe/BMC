@@ -37,6 +37,7 @@
     <string-array name="video_max_frame_rate">
         <item>10</item>
         <item>15</item>
+        <item>20</item>
         <item>23.97</item>
         <item>24</item>
         <item>25</item>

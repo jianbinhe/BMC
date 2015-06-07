@@ -3,6 +3,7 @@ package com.bmc.preset;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -13,10 +14,10 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidubce.BceServiceException;
 import com.baidubce.services.media.model.GetPresetResponse;
 import com.bmc.R;
 import com.bmc.common.WithCreateNewItem;
@@ -59,14 +60,8 @@ public class PresetsFragment extends Fragment implements
 
     private String confVersion = "";
 
+    private ProgressBar progressBar;
 
-    // TODO: Rename and change types of parameters
-    public static PresetsFragment newInstance(String param1, String param2) {
-        PresetsFragment fragment = new PresetsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -82,7 +77,6 @@ public class PresetsFragment extends Fragment implements
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
         mAdapter = new PresetItemAdaptor(getActivity(), R.layout.preset_list_item, presets);
     }
 
@@ -90,6 +84,9 @@ public class PresetsFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_preset, container, false);
+
+        progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.INVISIBLE);
 
 
         // Set the adapter
@@ -171,22 +168,44 @@ public class PresetsFragment extends Fragment implements
             Date current = new Date();
             if (updateTime == null || (!confVersion.equals(CurrentConf.version()))
                     || (current.getTime() - updateTime.getTime()) > 1000 * 60) {
-                presets.clear();
-                try {
-                    presets.addAll(CurrentConf.getMediaClient().listPresets().getPresets());
-                    updateTime = current;
-                    Toast.makeText(getActivity(), "数据刷新成功", Toast.LENGTH_SHORT).show();
-                } catch (BceServiceException ex) {
-                    Toast.makeText(getActivity(), ex.toString(), Toast.LENGTH_SHORT).show();
-                }
-                ((ArrayAdapter) mAdapter).notifyDataSetChanged();
-                confVersion = CurrentConf.version();
-                Log.d(getClass().toString(), "become visible and success refresh data");
-            } else {
-                Log.d(getClass().toString(), "presets data refreshed in less than 1 minutes");
+                new GetPresetsTask().execute();
             }
-        } else {
-            Log.d(getClass().toString(), "presets fragment hidden");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            new GetPresetsTask().execute();
+        }
+    }
+
+    class GetPresetsTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+            List<GetPresetResponse> presetList = CurrentConf.getMediaClient().listPresets().getPresets();
+            presets.clear();
+            presets.addAll(presetList);
+            confVersion = CurrentConf.version();
+            updateTime = new Date();
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            progressBar.setVisibility(View.INVISIBLE);
+            if (!success) {
+                Toast.makeText(getActivity(), "数据更新失败", Toast.LENGTH_SHORT).show();
+            } else {
+                ((ArrayAdapter) mAdapter).notifyDataSetChanged();
+                Toast.makeText(getActivity(), "数据刷新成功", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

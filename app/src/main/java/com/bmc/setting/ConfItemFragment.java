@@ -161,7 +161,7 @@ public class ConfItemFragment extends Fragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("ConfItemFragment", "returned from activity");
-        if (!data.getBooleanExtra("success", false)) {
+        if (resultCode != Activity.RESULT_OK) {
             Log.d("ConfItemFragment", "user not add new conf item");
             return;
         }

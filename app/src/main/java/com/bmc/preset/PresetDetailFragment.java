@@ -17,8 +17,6 @@ import com.bmc.R;
  * Activities that contain this fragment must implement the
  * {@link OnPresetFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PresetDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class PresetDetailFragment extends Fragment {
 
@@ -26,21 +24,6 @@ public class PresetDetailFragment extends Fragment {
 
     private OnPresetFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PresetDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PresetDetailFragment newInstance(String param1, String param2) {
-        PresetDetailFragment fragment = new PresetDetailFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public PresetDetailFragment() {
         // Required empty public constructor
@@ -67,17 +50,25 @@ public class PresetDetailFragment extends Fragment {
 
         enableEditText(mListener.editable(), presetName, presetDescription);
 
-        /*----------------audio setting -----------------------------*/
-        CheckBox audio = (CheckBox) view.findViewById(R.id.audio_check_box);
-        audio.setChecked(preset.getAudio() != null);
-        audio.setEnabled(mListener.editable());
-
-        /*----------------video setting -----------------------------*/
-        CheckBox video = (CheckBox) view.findViewById(R.id.video_check_box);
-        video.setChecked(preset.getVideo() != null);
-        video.setEnabled(mListener.editable());
+        fragmentSetting(view, R.id.audio_check_box, R.id.fragment_preset_audio, preset.getAudio() != null);
+        fragmentSetting(view, R.id.video_check_box, R.id.fragment_preset_video, preset.getVideo() != null);
+        fragmentSetting(view, R.id.clip_check_box, R.id.fragment_preset_clip, preset.getClip() != null);
 
         return view;
+    }
+
+    private void fragmentSetting(View view, int checkBoxId, int fragmentId, boolean enable) {
+        CheckBox checkBox = (CheckBox) view.findViewById(checkBoxId);
+        if (enable) {
+            checkBox.setChecked(true);
+        } else {
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            Fragment fragment = fragmentManager.findFragmentById(fragmentId);
+            fragmentManager.beginTransaction()
+                    .hide(fragment)
+                    .commit();
+        }
+        checkBox.setEnabled(mListener.editable());
     }
 
     private void enableEditText(Boolean enable, EditText... editTexts) {
