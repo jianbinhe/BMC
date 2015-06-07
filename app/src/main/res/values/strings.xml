@@ -47,6 +47,14 @@
         <item>60</item>
     </string-array>
 
+    <string-array name="preset_container">
+        <item>mp4</item>
+        <item>flv</item>
+        <item>hls</item>
+        <item>mp3</item>
+        <item>m4a</item>
+    </string-array>
+
     <string-array name="video_sizing_policy">
         <item>keep</item>
         <item>shrinkToFit</item>
@@ -60,5 +68,6 @@
 
     <string name="action_example">Example action</string>
     <string name="title_activity_preset_detail">模板详情</string>
-    <string name="title_activity_pipeline_create">PipelineCreateActivity</string>
+    <string name="title_activity_pipeline_create">新建队列</string>
+    <string name="title_activity_preset_create">新建模板</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.baidubce.services.media.model.CodecOptions;
 import com.baidubce.services.media.model.Video;
 import com.bmc.R;
 
@@ -22,6 +23,14 @@ public class PresetVideoFragment extends Fragment {
     private OnPresetFragmentInteractionListener mListener;
 
     private Video video;
+
+    private EditText bitRateInBps;
+    private EditText maxHeight;
+    private EditText maxWidth;
+    private Spinner profile;
+    private Spinner sizingPolicy;
+    private Spinner codec;
+    private Spinner maxFrameRate;
 
 
     public PresetVideoFragment() {
@@ -42,29 +51,29 @@ public class PresetVideoFragment extends Fragment {
             return view;
         }
 
-        EditText bitRateInBps = (EditText) view.findViewById(R.id.bit_rate_in_bps);
+        bitRateInBps = (EditText) view.findViewById(R.id.bit_rate_in_bps);
         bitRateInBps.setText(video.getBitRateInBps().toString());
 
-        EditText maxHeight = (EditText) view.findViewById(R.id.max_height);
+        maxHeight = (EditText) view.findViewById(R.id.max_height);
         if (video.getMaxHeightInPixel() != null) {
             maxHeight.setText(video.getMaxHeightInPixel().toString());
         }
 
-        EditText maxWidth = (EditText) view.findViewById(R.id.max_width);
+        maxWidth = (EditText) view.findViewById(R.id.max_width);
         if (video.getMaxWidthInPixel() != null) {
             maxWidth.setText(video.getMaxWidthInPixel().toString());
         }
 
-        Spinner profile = (Spinner) view.findViewById(R.id.profile);
+        profile = (Spinner) view.findViewById(R.id.profile);
         profile.setSelection(getIndex(profile, video.getCodecOptions().getProfile()));
 
-        Spinner sizingPolicy = (Spinner) view.findViewById(R.id.sizing_policy);
+        sizingPolicy = (Spinner) view.findViewById(R.id.sizing_policy);
         sizingPolicy.setSelection(getIndex(sizingPolicy, video.getSizingPolicy()));
 
-        Spinner codec = (Spinner) view.findViewById(R.id.codec);
+        codec = (Spinner) view.findViewById(R.id.codec);
         codec.setSelection(getIndex(codec, video.getCodec()));
 
-        Spinner maxFrameRate = (Spinner) view.findViewById(R.id.max_frame_rate);
+        maxFrameRate = (Spinner) view.findViewById(R.id.max_frame_rate);
         maxFrameRate.setSelection(getIndex(maxFrameRate, video.getMaxFrameRate()));
 
         enableEditText(mListener.editable(), bitRateInBps, maxHeight, maxWidth);
@@ -120,6 +129,37 @@ public class PresetVideoFragment extends Fragment {
             }
         }
         throw new RuntimeException("Recognized item value:" + item);
+    }
+
+    public Video getVideo() {
+        Video video = new Video();
+        if (!bitRateInBps.getText().toString().isEmpty()) {
+            video.setBitRateInBps(Integer.valueOf(bitRateInBps.getText().toString()));
+        }
+
+        if (!maxWidth.getText().toString().isEmpty()) {
+            video.setMaxWidthInPixel(Integer.valueOf(maxWidth.getText().toString()));
+        }
+
+        if (!maxHeight.getText().toString().isEmpty()) {
+            video.setMaxHeightInPixel(Integer.valueOf(maxHeight.getText().toString()));
+        }
+
+        String[] maxFrameRates = getResources().getStringArray(R.array.video_max_frame_rate);
+        video.setMaxFrameRate(Float.valueOf(maxFrameRates[maxFrameRate.getSelectedItemPosition()]));
+
+        String[] codecs = getResources().getStringArray(R.array.video_codec);
+        video.setCodec(codecs[codec.getSelectedItemPosition()]);
+
+        CodecOptions codecOptions = new CodecOptions();
+        String[] profiles = getResources().getStringArray(R.array.video_profile);
+        codecOptions.setProfile(profiles[profile.getSelectedItemPosition()]);
+        video.setCodecOptions(codecOptions);
+
+        String[] sizingPolicies = getResources().getStringArray(R.array.video_sizing_policy);
+        video.setSizingPolicy(sizingPolicies[sizingPolicy.getSelectedItemPosition()]);
+
+        return video;
     }
 
 }

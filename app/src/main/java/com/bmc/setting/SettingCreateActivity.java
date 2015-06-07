@@ -21,7 +21,7 @@ import java.util.List;
 public class SettingCreateActivity extends AppCompatActivity {
     private Spinner envSpinner;
 
-    private static final List<String> envList = Arrays.asList("qa_sandbox", "online_bj");
+    private static final List<String> envList = Arrays.asList("online_bj", "qa_sandbox");
 
 
     @Override

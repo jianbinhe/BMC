@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name=".preset.PresetDetailActivity"
-            android:label="@string/title_activity_preset_detail" ></activity>
+            android:label="@string/title_activity_preset_detail" />
         <activity
             android:name=".pipeline.PipelineCreateActivity"
             android:label="@string/title_activity_pipeline_create">

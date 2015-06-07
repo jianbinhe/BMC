@@ -12,11 +12,12 @@ import com.bmc.R;
 import com.bmc.setting.CurrentConf;
 
 public class PresetDetailActivity extends ActionBarActivity
-        implements OnPresetFragmentInteractionListener{
+        implements OnPresetFragmentInteractionListener {
 
-    private String presetName;
 
     private GetPresetResponse preset;
+
+    private boolean editable = false;
 
     public static void start(Context context, String presetName) {
         Intent intent = new Intent(context, PresetDetailActivity.class);
@@ -29,8 +30,18 @@ public class PresetDetailActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        presetName = intent.getStringExtra("presetName");
-        preset = CurrentConf.getMediaClient().getPreset(presetName);
+        String presetName = intent.getStringExtra("presetName");
+        editable = intent.getBooleanExtra("editable", false);
+
+        if (presetName == null) {
+            preset = new GetPresetResponse();
+        } else {
+            preset = CurrentConf.getMediaClient().getPreset(presetName);
+            if (editable && presetName.startsWith("bce.")) {
+                // user copy system preset, remove system prefix
+                preset.setPresetName(presetName.substring(4));
+            }
+        }
 
         setContentView(R.layout.activity_preset_detail);
     }
@@ -64,6 +75,6 @@ public class PresetDetailActivity extends ActionBarActivity
 
     @Override
     public Boolean editable() {
-        return false;
+        return editable;
     }
 }

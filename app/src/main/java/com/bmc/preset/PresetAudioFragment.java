@@ -16,14 +16,16 @@ import com.bmc.R;
  * Activities that contain this fragment must implement the
  * {@link OnPresetFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PresetAudioFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class PresetAudioFragment extends Fragment {
 
     private Audio audio;
 
     private OnPresetFragmentInteractionListener mListener;
+
+    private EditText bitRate;
+    private EditText sampleRate;
+    private EditText channels;
 
     public PresetAudioFragment() {
         // Required empty public constructor
@@ -44,9 +46,9 @@ public class PresetAudioFragment extends Fragment {
             return view;
         }
 
-        EditText bitRate = (EditText) view.findViewById(R.id.bitRateInBps);
-        EditText sampleRate = (EditText) view.findViewById(R.id.sampleRateInHz);
-        EditText channels = (EditText) view.findViewById(R.id.channels);
+        bitRate = (EditText) view.findViewById(R.id.bitRateInBps);
+        sampleRate = (EditText) view.findViewById(R.id.sampleRateInHz);
+        channels = (EditText) view.findViewById(R.id.channels);
 
         bitRate.setText(audio.getBitRateInBps().toString());
         sampleRate.setText(audio.getSampleRateInHz().toString());
@@ -80,5 +82,19 @@ public class PresetAudioFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public Audio getAudio() {
+        Audio audio = new Audio();
+        if (!bitRate.getText().toString().isEmpty()) {
+            audio.setBitRateInBps(Integer.valueOf(bitRate.getText().toString()));
+        }
+        if (!sampleRate.getText().toString().isEmpty()) {
+            audio.setSampleRateInHz(Integer.valueOf(sampleRate.getText().toString()));
+        }
+        if (!channels.getText().toString().isEmpty()) {
+            audio.setChannels(Integer.valueOf(channels.getText().toString()));
+        }
+        return audio;
     }
 }

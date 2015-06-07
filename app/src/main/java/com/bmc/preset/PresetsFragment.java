@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.baidubce.services.media.model.GetPresetResponse;
 import com.bmc.R;
 import com.bmc.common.WithCreateNewItem;
-import com.bmc.pipeline.PipelineCreateActivity;
 import com.bmc.setting.CurrentConf;
 
 import java.util.ArrayList;
@@ -142,7 +141,8 @@ public class PresetsFragment extends Fragment implements
 
     @Override
     public void onCreateNewItem() {
-        Intent intent = new Intent(getActivity(), PipelineCreateActivity.class);
+        Intent intent = new Intent(getActivity(), PresetDetailActivity.class);
+        intent.putExtra("editable", true);
         startActivityForResult(intent, R.integer.create_new_preset);
     }
 

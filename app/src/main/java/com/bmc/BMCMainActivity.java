@@ -38,10 +38,10 @@ public class BMCMainActivity extends ActionBarActivity
 
     private int currentFragmentIndex = -1;
 
-    private final int PRESET = 0;
-    private final int PIPELINE = 1;
-    private final int BUCKET = 2;
-    private final int SETTING = 3;
+    public static final int PRESET = 0;
+    public static final int PIPELINE = 1;
+    public static final int BUCKET = 2;
+    public static final int SETTING = 3;
 
 
     @Override
@@ -122,7 +122,7 @@ public class BMCMainActivity extends ActionBarActivity
         }
     }
 
-    private android.app.Fragment getFragment(int index) {
+    public android.app.Fragment getFragment(int index) {
         android.app.FragmentManager fragmentManager = getFragmentManager();
         switch (index) {
             case PRESET:
@@ -197,5 +197,6 @@ public class BMCMainActivity extends ActionBarActivity
         intent.putExtra("pipelineName", pipelineName);
         startActivity(intent);
     }
+
 
 }

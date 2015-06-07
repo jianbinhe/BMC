@@ -23,6 +23,9 @@ public class PresetClipFragment extends Fragment {
 
     private OnPresetFragmentInteractionListener mListener;
 
+    private EditText startTime;
+    private EditText duration;
+
     public PresetClipFragment() {
         // Required empty public constructor
     }
@@ -37,8 +40,8 @@ public class PresetClipFragment extends Fragment {
             return view;
         }
 
-        EditText startTime = (EditText) view.findViewById(R.id.start_time);
-        EditText duration = (EditText) view.findViewById(R.id.duration);
+        startTime = (EditText) view.findViewById(R.id.start_time);
+        duration = (EditText) view.findViewById(R.id.duration);
 
         if (clip.getStartTimeInSecond() != null) {
             startTime.setText(clip.getStartTimeInSecond().toString());
@@ -74,6 +77,17 @@ public class PresetClipFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public Clip getClip() {
+        Clip clip = new Clip();
+        if (!startTime.getText().toString().isEmpty()) {
+            clip.setStartTimeInSecond(Integer.valueOf(startTime.getText().toString()));
+        }
+        if (!duration.getText().toString().isEmpty()) {
+            clip.setDurationInSecond(Integer.valueOf(duration.getText().toString()));
+        }
+        return clip;
     }
 
 }
