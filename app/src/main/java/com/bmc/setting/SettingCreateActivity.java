@@ -1,8 +1,8 @@
 package com.bmc.setting;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class SettingCreateActivity extends AppCompatActivity {
+public class SettingCreateActivity extends Activity {
     private Spinner envSpinner;
 
     private static final List<String> envList = Arrays.asList("online_bj", "qa_sandbox");
@@ -29,8 +29,8 @@ public class SettingCreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_setting);
         envSpinner = (Spinner) findViewById(R.id.env_spinner);
-        envSpinner.setAdapter(new ArrayAdapter<>(this,
-                R.layout.support_simple_spinner_dropdown_item, envList));
+        envSpinner.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, envList));
 
         final EditText accessKey = (EditText) findViewById(R.id.access_key);
         final EditText secretKey = (EditText) findViewById(R.id.secret_key);

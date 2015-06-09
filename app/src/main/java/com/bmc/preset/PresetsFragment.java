@@ -53,7 +53,7 @@ public class PresetsFragment extends Fragment implements
      */
     private ListAdapter mAdapter;
 
-    private List<GetPresetResponse> presets = new ArrayList<>();
+    private List<GetPresetResponse> presets = new ArrayList<GetPresetResponse>();
 
     private Date updateTime;
 
@@ -76,7 +76,7 @@ public class PresetsFragment extends Fragment implements
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        mAdapter = new PresetItemAdaptor(getActivity(), R.layout.preset_list_item, presets);
+        mAdapter = new PresetAdaptor(getActivity(), R.layout.preset_list_item, presets);
     }
 
     @Override
@@ -180,29 +180,33 @@ public class PresetsFragment extends Fragment implements
         }
     }
 
-    class GetPresetsTask extends AsyncTask<Void, Void, Boolean> {
+    class GetPresetsTask extends AsyncTask<Void, Void, List<GetPresetResponse>> {
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
-        protected Boolean doInBackground(Void... voids) {
-
-            List<GetPresetResponse> presetList = CurrentConf.getMediaClient().listPresets().getPresets();
-            presets.clear();
-            presets.addAll(presetList);
-            confVersion = CurrentConf.version();
-            updateTime = new Date();
-            return true;
+        protected List<GetPresetResponse> doInBackground(Void... voids) {
+            List<GetPresetResponse> presets;
+            try {
+                presets = CurrentConf.getMediaClient().listPresets().getPresets();
+            } catch (Exception ex) {
+                return null;
+            }
+            return presets;
         }
 
         @Override
-        protected void onPostExecute(Boolean success) {
+        protected void onPostExecute(List<GetPresetResponse> newPresets) {
             progressBar.setVisibility(View.INVISIBLE);
-            if (!success) {
+            if (newPresets == null) {
                 Toast.makeText(getActivity(), "数据更新失败", Toast.LENGTH_SHORT).show();
             } else {
+                presets.clear();
+                presets.addAll(newPresets);
+                confVersion = CurrentConf.version();
+                updateTime = new Date();
                 ((ArrayAdapter) mAdapter).notifyDataSetChanged();
                 Toast.makeText(getActivity(), "数据刷新成功", Toast.LENGTH_SHORT).show();
             }

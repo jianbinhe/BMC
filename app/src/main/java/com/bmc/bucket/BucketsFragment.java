@@ -47,15 +47,8 @@ public class BucketsFragment extends Fragment implements
      */
     private ListAdapter mAdapter;
 
-    private List<BucketSummary> buckets = new ArrayList<>();
+    private List<BucketSummary> buckets = new ArrayList<BucketSummary>();
 
-    // TODO: Rename and change types of parameters
-    public static BucketsFragment newInstance(String param1, String param2) {
-        BucketsFragment fragment = new BucketsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -121,32 +114,35 @@ public class BucketsFragment extends Fragment implements
 
     }
 
-    class GetBucketsTask extends AsyncTask<Void, Void, Boolean> {
+    class GetBucketsTask extends AsyncTask<Void, Void, List<BucketSummary>> {
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
-        protected Boolean doInBackground(Void... voids) {
-            List<BucketSummary> bucketSummaries =
-                    CurrentConf.getBosClient().listBuckets().getBuckets();
-            buckets.clear();
-            buckets.addAll(bucketSummaries);
-            return true;
+        protected List<BucketSummary> doInBackground(Void... voids) {
+            List<BucketSummary> bucketSummaries;
+            try {
+                bucketSummaries = CurrentConf.getBosClient().listBuckets().getBuckets();
+            } catch (Exception ex) {
+                return null;
+            }
+            return bucketSummaries;
         }
 
         @Override
-        protected void onPostExecute(Boolean success) {
+        protected void onPostExecute(List<BucketSummary> bucketSummaries) {
             progressBar.setVisibility(View.INVISIBLE);
-            if (!success) {
-                Toast.makeText(getActivity(), "数据更新失败", Toast.LENGTH_SHORT);
+            if (bucketSummaries == null) {
+                Toast.makeText(getActivity(), "数据更新失败", Toast.LENGTH_SHORT).show();
             } else {
+                buckets.clear();
+                buckets.addAll(bucketSummaries);
                 ((ArrayAdapter) mAdapter).notifyDataSetChanged();
                 Toast.makeText(getActivity(), "数据刷新成功", Toast.LENGTH_SHORT).show();
             }
 
         }
     }
-
 }

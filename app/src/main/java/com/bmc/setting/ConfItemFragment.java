@@ -87,7 +87,7 @@ public class ConfItemFragment extends Fragment implements
             }.getType());
             Log.d(getClass().toString(), "success read conf from file");
         } catch (IOException ex) {
-            result = new ArrayList<>();
+            result = new ArrayList<ConfItem>();
         } finally {
             if (reader != null) {
                 try {

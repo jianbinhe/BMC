@@ -1,6 +1,6 @@
 package com.bmc.bucket;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import com.bmc.R;
 
 
-public class BucketListActivity extends ActionBarActivity {
+public class BucketListActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

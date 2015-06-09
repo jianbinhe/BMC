@@ -1,8 +1,8 @@
 package com.bmc.pipeline;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,9 +19,9 @@ import com.bmc.setting.CurrentConf;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PipelineCreateActivity extends ActionBarActivity {
+public class PipelineCreateActivity extends Activity {
 
-    private List<String> buckets = new ArrayList<>();
+    private List<String> buckets = new ArrayList<String>();
 
 
     @Override
@@ -37,8 +37,8 @@ public class PipelineCreateActivity extends ActionBarActivity {
         final Spinner sourceBucket = (Spinner) findViewById(R.id.source_bucket);
         final Spinner targetBucket = (Spinner) findViewById(R.id.target_bucket);
 
-        sourceBucket.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, buckets));
-        targetBucket.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, buckets));
+        sourceBucket.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, buckets));
+        targetBucket.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, buckets));
 
         final Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {

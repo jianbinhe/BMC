@@ -8,15 +8,16 @@ import java.util.TreeMap;
  * Created by hejianbin on 6/1/15.
  */
 public class Endpoints {
-    private static final Map<String, Map<Product, String>> confs = new HashMap<>();
+    private static final Map<String, Map<Product, String>> confs
+            = new HashMap<String, Map<Product, String>>();
 
     static {
-        Map<Product, String> sandbox = new TreeMap<>();
+        Map<Product, String> sandbox = new TreeMap<Product, String>();
         sandbox.put(Product.BOS, "http://10.105.97.15/");
         sandbox.put(Product.BMC, "http://multimedia.bce-testinternal.baidu.com");
         confs.put("qa_sandbox", sandbox);
 
-        Map<Product, String> online = new TreeMap<>();
+        Map<Product, String> online = new TreeMap<Product, String>();
         online.put(Product.BOS, "http://bj.bcebos.com");
         online.put(Product.BMC, "http://media.bj.baidubce.com");
         confs.put("online_bj", online);

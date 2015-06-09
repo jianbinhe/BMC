@@ -1,9 +1,9 @@
 package com.bmc.pipeline;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,7 +16,7 @@ import com.bmc.setting.CurrentConf;
 import java.util.List;
 
 
-public class PipelineDetailActivity extends ActionBarActivity implements JobListFragment.OnFragmentInteractionListener {
+public class PipelineDetailActivity extends Activity implements JobListFragment.OnFragmentInteractionListener {
     private PipelineStatus pipeline;
 
     public static void start(Context context, String pipelineName) {

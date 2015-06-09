@@ -18,10 +18,10 @@ import java.util.List;
 /**
  * Created by hejianbin on 6/1/15.
  */
-public class PresetItemAdaptor extends ArrayAdapter<GetPresetResponse> {
+public class PresetAdaptor extends ArrayAdapter<GetPresetResponse> {
     private int resourceId;
 
-    public PresetItemAdaptor(Context context, int resource, List<GetPresetResponse> objects) {
+    public PresetAdaptor(Context context, int resource, List<GetPresetResponse> objects) {
         super(context, resource, objects);
         this.resourceId = resource;
     }

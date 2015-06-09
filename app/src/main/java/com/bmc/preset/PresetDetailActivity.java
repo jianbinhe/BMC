@@ -1,9 +1,9 @@
 package com.bmc.preset;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,7 +11,7 @@ import com.baidubce.services.media.model.GetPresetResponse;
 import com.bmc.R;
 import com.bmc.setting.CurrentConf;
 
-public class PresetDetailActivity extends ActionBarActivity
+public class PresetDetailActivity extends Activity
         implements OnPresetFragmentInteractionListener {
 
 

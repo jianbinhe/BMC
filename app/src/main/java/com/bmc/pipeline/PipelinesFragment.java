@@ -55,7 +55,7 @@ public class PipelinesFragment extends Fragment implements
      */
     private ListAdapter mAdapter;
 
-    private List<PipelineStatus> pipelines = new ArrayList<>();
+    private List<PipelineStatus> pipelines = new ArrayList<PipelineStatus>();
 
     private Date updateTime;
 
@@ -179,16 +179,21 @@ public class PipelinesFragment extends Fragment implements
         }
     }
 
-    class GetPipelinesTask extends AsyncTask<Void, Void, Boolean> {
+    class GetPipelinesTask extends AsyncTask<Void, Void, List<PipelineStatus>> {
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
-        protected Boolean doInBackground(Void... voids) {
-            List<PipelineStatus> pipelineStatuses =
-                    CurrentConf.getMediaClient().listPipelines().getPipelines();
+        protected List<PipelineStatus> doInBackground(Void... voids) {
+            List<PipelineStatus> pipelineStatuses;
+            try {
+                pipelineStatuses =
+                        CurrentConf.getMediaClient().listPipelines().getPipelines();
+            } catch (Exception ex) {
+                return null;
+            }
             Collections.sort(pipelineStatuses, new Comparator<PipelineStatus>() {
                 @Override
                 public int compare(PipelineStatus p0, PipelineStatus p1) {
@@ -196,19 +201,19 @@ public class PipelinesFragment extends Fragment implements
                 }
             });
 
-            pipelines.clear();
-            pipelines.addAll(pipelineStatuses);
-            confVersion = CurrentConf.version();
-            updateTime = new Date();
-            return true;
+            return pipelineStatuses;
         }
 
         @Override
-        protected void onPostExecute(Boolean success) {
+        protected void onPostExecute(List<PipelineStatus> pipelineStatuses) {
             progressBar.setVisibility(View.INVISIBLE);
-            if (!success) {
+            if (pipelineStatuses == null) {
                 Toast.makeText(getActivity(), "数据更新失败", Toast.LENGTH_SHORT).show();
             } else {
+                pipelines.clear();
+                pipelines.addAll(pipelineStatuses);
+                confVersion = CurrentConf.version();
+                updateTime = new Date();
                 ((ArrayAdapter) mAdapter).notifyDataSetChanged();
                 Toast.makeText(getActivity(), "数据刷新成功", Toast.LENGTH_SHORT).show();
             }

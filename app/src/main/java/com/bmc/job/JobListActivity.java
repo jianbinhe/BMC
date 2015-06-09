@@ -1,6 +1,6 @@
 package com.bmc.job;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +13,7 @@ import com.bmc.setting.CurrentConf;
 import java.util.List;
 
 
-public class JobListActivity extends ActionBarActivity {
+public class JobListActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,6 @@
 package com.bmc.job;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,18 +47,18 @@ public class JobItemAdaptor extends ArrayAdapter<Job> {
         }
 
         jobStatus.setText(job.getJobStatus());
-        switch (job.getJobStatus()) {
-            case "SUCCESS":
-            case "RUNNING":
-                jobStatus.setTextColor(Color.GREEN);
-                break;
-            case "PENDING":
-                jobStatus.setTextColor(Color.YELLOW);
-                break;
-            case "FAILED":
-                jobStatus.setTextColor(Color.RED);
-                break;
-        }
+//        switch (job.getJobStatus()) {
+//            case "SUCCESS":
+//            case "RUNNING":
+//                jobStatus.setTextColor(Color.GREEN);
+//                break;
+//            case "PENDING":
+//                jobStatus.setTextColor(Color.YELLOW);
+//                break;
+//            case "FAILED":
+//                jobStatus.setTextColor(Color.RED);
+//                break;
+//        }
         return view;
     }
 }

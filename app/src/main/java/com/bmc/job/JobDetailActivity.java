@@ -1,9 +1,9 @@
 package com.bmc.job;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +15,7 @@ import com.bmc.common.Constants;
 import com.bmc.preset.PresetDetailActivity;
 import com.bmc.setting.CurrentConf;
 
-public class JobDetailActivity extends ActionBarActivity {
+public class JobDetailActivity extends Activity {
 
     private GetJobResponse job;
 
